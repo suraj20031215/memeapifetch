@@ -2,10 +2,17 @@ import 'package:exampledemo/screen/PageApi.dart';
 // import 'package:exampledemo/screen/first.dart';
 import 'package:exampledemo/screen/home.dart';
 import 'package:exampledemo/screen/login.dart';
+import 'package:exampledemo/screen/news.dart';
+import 'package:exampledemo/state/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => ThemeProvider(),
+      child: const MyApp()));
+
+
 }
 
 class MyApp extends StatelessWidget {
@@ -14,16 +21,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
+      // darkTheme: ThemeData(
+      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
+      //
+      // ),
+      theme: themeProvider.theme,
 
-      theme: ThemeData(
-
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-        useMaterial3: true,
-      ),
-      home:APICall(),
+      // theme: ThemeData(
+      //
+      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+      //   useMaterial3: true,
+      // ),
+      home:NewsApi(),
     //  home:HomeScreen(),
     );
   }

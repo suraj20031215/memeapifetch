@@ -3,6 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
+
+import '../state/provider.dart';
 class APICall extends StatefulWidget {
   const APICall({super.key});
 
@@ -11,14 +14,18 @@ class APICall extends StatefulWidget {
 }
 
 class _APICallState extends State<APICall> {
-  List<Map<String,dynamic>> myvar=[];
+
+
+
+  // List<Map<String,dynamic>>
+ var myvar=[];
   bool loaded=false;
   Future<void> callApi()async{
     http.Response resp=await http.get(Uri.parse('https://api.imgflip.com/get_memes'));
 
     if(resp.statusCode==200){
       Map<String,dynamic> data=json.decode(resp.body);
-      print(data);
+    //  print(data);
       var mydata=data['data']['memes'];
       print(mydata);
       setState(() {
@@ -31,6 +38,8 @@ class _APICallState extends State<APICall> {
       print('error');
     }
   }
+
+
   @override
   void initState() {
     // TODO: implement initState
